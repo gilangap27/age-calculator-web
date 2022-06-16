@@ -1,8 +1,14 @@
-
+Date.prototype.toDateInputValue = (function () {
+  var local = new Date(this);
+  local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+  return local.toJSON().slice(0, 10);
+});
 
 let output = document.querySelector(".output .head h2");
 let input = document.querySelector(".input label input");
 let btnKirim = document.querySelector(".input .kirim");
+
+input.value = new Date().toDateInputValue();
 
 btnKirim.addEventListener('click', function () {
   let waktuSekarang = new Date().getTime();
@@ -16,4 +22,3 @@ btnKirim.addEventListener('click', function () {
   output.style.visibility = "visible";
 
 });
-
